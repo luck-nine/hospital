@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccunix.hospital.web.doctor.mapper.LocalDoctorMapper">
+    <insert id="insert" parameterType="LocalDoctor" useGeneratedKeys="true" keyProperty="localDoctorId">
+        <!-- 自动生成uuid -->
+        <selectKey keyProperty="localDoctorId" resultType="java.lang.String" order="BEFORE">
+            select replace(uuid(),'-','') AS ID
+        </selectKey>
+        insert into local_doctor(local_doctor_id,username,password,phone,name,audit,address,create_time)
+        values (#{localDoctorId},#{username},#{password},#{phone},#{name},0,#{address},sysdate())
+    </insert>
+</mapper>
