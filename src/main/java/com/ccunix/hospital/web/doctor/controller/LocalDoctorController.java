@@ -2,40 +2,54 @@ package com.ccunix.hospital.web.doctor.controller;
 
 import com.ccunix.hospital.common.constant.UserConstants;
 import com.ccunix.hospital.common.domain.AjaxResult;
+import com.ccunix.hospital.common.domain.ResponseEnum;
+import com.ccunix.hospital.common.domain.ResponseResult;
 import com.ccunix.hospital.web.doctor.domain.Goods;
 import com.ccunix.hospital.web.doctor.domain.LocalDoctor;
 import com.ccunix.hospital.web.doctor.service.ILocalDoctorService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-
+@Api(tags = "乡医用户管理")
 @RestController
+@RequestMapping("/doctor")
 public class LocalDoctorController {
-    @Autowired
-    ILocalDoctorService localDoctorService;
 
+    @ApiOperation("乡医注册")
     @PostMapping("/register")
-    public AjaxResult login(@Valid @RequestBody LocalDoctor localDoctor){
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名称", dataType = "String", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "password", value = "密码", dataType = "String", dataTypeClass = Integer.class, required = true),
+            @ApiImplicitParam(name = "name", value = "真实姓名", dataType = "String", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "address", value = "地址", dataType = "String", dataTypeClass = String.class, required = true)
+
+    })
+    public ResponseResult<Integer> register(@Valid @RequestBody LocalDoctor localDoctor){
         // 先验证  用户名是否唯一
         // 不是唯一 需要返回一个消息
         String isUnique = localDoctorService.checkUserNameUnique(localDoctor.getUsername());
         if(UserConstants.NOT_UNIQUE.equals(isUnique)){
             // 不唯一
-            return AjaxResult.error("用户名已经被注册");
+            return ResponseResult.error(ResponseEnum.USER_ADD_ERROR_PHONE);
         }
 
-
-        AjaxResult ajax = AjaxResult.success("注册信息获取成功");
         // 注册
         int row = localDoctorService.register(localDoctor);
-        ajax.put("data",row);
-        return ajax;
+        return ResponseResult.success(row);
     }
+
+    @Autowired
+    ILocalDoctorService localDoctorService;
 
     @PostMapping("/goodsList")
     public AjaxResult list(){
