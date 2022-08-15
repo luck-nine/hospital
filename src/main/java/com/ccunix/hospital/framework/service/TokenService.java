@@ -1,6 +1,6 @@
 package com.ccunix.hospital.framework.service;
 
-import com.ccunix.hospital.common.utils.Constants;
+import com.ccunix.hospital.common.constant.Constants;
 import com.ccunix.hospital.common.utils.RedisCache;
 import com.ccunix.hospital.common.utils.StringUtils;
 import com.ccunix.hospital.common.utils.uuid.IdUtils;

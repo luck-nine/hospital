@@ -1,4 +1,4 @@
-package com.ccunix.hospital.common.utils;
+package com.ccunix.hospital.common.constant;
 
 /**
  * 返回状态码

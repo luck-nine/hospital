@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.ccunix.hospital.common.annotation.RepeatSubmit;
 import com.ccunix.hospital.common.filter.RepeatedlyRequestWrapper;
-import com.ccunix.hospital.common.utils.Constants;
+import com.ccunix.hospital.common.constant.Constants;
 import com.ccunix.hospital.common.utils.RedisCache;
 import com.ccunix.hospital.common.utils.StringUtils;
 import com.ccunix.hospital.common.utils.http.HttpHelper;

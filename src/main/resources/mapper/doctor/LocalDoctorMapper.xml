@@ -52,4 +52,8 @@
         <include refid="selectLocalDoctorVo"></include>
         where username=#{username}
     </select>
+    
+    <select id="checkUserNameUnique" parameterType="string" resultType="int">
+        select count(1) from local_doctor where username=#{username} limit 1
+    </select>
 </mapper>

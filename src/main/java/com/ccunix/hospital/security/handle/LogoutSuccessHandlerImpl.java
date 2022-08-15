@@ -2,7 +2,7 @@ package com.ccunix.hospital.security.handle;
 
 import com.alibaba.fastjson.JSON;
 import com.ccunix.hospital.common.domain.AjaxResult;
-import com.ccunix.hospital.common.utils.HttpStatus;
+import com.ccunix.hospital.common.constant.HttpStatus;
 import com.ccunix.hospital.common.utils.ServletUtils;
 import com.ccunix.hospital.common.utils.StringUtils;
 import com.ccunix.hospital.framework.service.TokenService;

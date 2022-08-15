@@ -1,8 +1,6 @@
-package com.ccunix.hospital.web.doctor.controller.swagger;
+package com.ccunix.hospital.test.swagger;
 
 import com.ccunix.hospital.common.domain.AjaxResult;
-import com.ccunix.hospital.common.domain.ResponseEnum;
-import com.ccunix.hospital.common.domain.ResponseResult;
 import com.ccunix.hospital.common.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -12,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Api(tags = "用户测试2信息管理")
+@Api(tags = "用户测试1信息管理")
 @RestController
-@RequestMapping("/test2/user")
-public class TestResponseController {
+@RequestMapping("/test/user")
+public class TestController {
     private final static Map<Integer, UserEntity> users = new LinkedHashMap<>();
     {
         users.put(1,new UserEntity(1,"admin","admin123","13345455656"));
@@ -24,9 +22,9 @@ public class TestResponseController {
 
     @ApiOperation("获取用户列表")
     @GetMapping("/list")
-    public ResponseResult<List<UserEntity>> userList(){
+    public AjaxResult userList(){
         List<UserEntity> userList = new ArrayList<>(users.values());
-        return ResponseResult.success(userList);
+        return AjaxResult.success(userList);
     }
     @ApiOperation("按照用户名和手机号查询用户信息")
     @ApiImplicitParams({
@@ -34,7 +32,8 @@ public class TestResponseController {
             @ApiImplicitParam(name = "mobile", value = "用户手机", dataType = "String", dataTypeClass = String.class)
     })
     @GetMapping("/query")
-    public ResponseResult<UserEntity> query(String username,String mobile){
+    public AjaxResult query(String username,String mobile){
+        AjaxResult ajax = AjaxResult.success();
         Collection<UserEntity> collection = users.values();
         UserEntity user = null;
         for(Iterator<UserEntity> iterator = collection.iterator();iterator.hasNext();){
@@ -44,16 +43,17 @@ public class TestResponseController {
                 break;
             }
         }
-        return ResponseResult.success(user);
+        ajax.put("data",user);
+        return ajax;
     }
     @ApiOperation("获取用户信息") //  /test/user/1
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "int", paramType = "path", dataTypeClass = Integer.class)
     @GetMapping("/{userId}")
-    public ResponseResult<UserEntity> getUser(@PathVariable Integer userId){
+    public AjaxResult getUser(@PathVariable Integer userId){
         if(!users.isEmpty() && users.containsKey(userId)){
-            return ResponseResult.success(users.get(userId));
+            return AjaxResult.success(users.get(userId));
         }else{
-            return ResponseResult.error();
+            return AjaxResult.error("用户不存在");
         }
     }
 
@@ -65,35 +65,35 @@ public class TestResponseController {
             @ApiImplicitParam(name = "mobile", value = "用户手机2", dataType = "String", dataTypeClass = String.class)
     })*/
     @PostMapping("/save")
-    public ResponseResult<UserEntity> save(UserEntity user){
+    public AjaxResult save(UserEntity user){
         if(StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())){
-            return ResponseResult.error();
+            return AjaxResult.error("用户ID不能为空");
         }
-        return ResponseResult.success(users.put(user.getUserId(), user));
+        return AjaxResult.success(users.put(user.getUserId(), user));
     }
 
     @ApiOperation("更新用户")
     @PutMapping("/update")
-    public ResponseResult<UserEntity> update(@RequestBody UserEntity user){
+    public AjaxResult update(@RequestBody UserEntity user){
         if(StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())){
-            return ResponseResult.error();
+            return AjaxResult.error("用户ID不能为空");
         }
         if(users.isEmpty() || !users.containsKey(user.getUserId())){
-            return ResponseResult.error();
+            return AjaxResult.error("用户不存在");
         }
         users.remove(user.getUserId());
-        return ResponseResult.success(users.put(user.getUserId(), user));
+        return AjaxResult.success(users.put(user.getUserId(), user));
     }
 
     @ApiOperation("删除用户信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "int", paramType = "path", dataTypeClass = Integer.class)
     @DeleteMapping("/{userId}")
-    public ResponseResult<String> delete(@PathVariable Integer userId){
+    public AjaxResult delete(@PathVariable Integer userId){
         if(!users.isEmpty() && users.containsKey(userId)){
             users.remove(userId);
-            return ResponseResult.success("删除成功");
+            return AjaxResult.success();
         }else{
-            return ResponseResult.error();
+            return AjaxResult.error("用户不存在");
         }
     }
 }

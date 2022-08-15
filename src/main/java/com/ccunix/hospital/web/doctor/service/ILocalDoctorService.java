@@ -16,4 +16,6 @@ public interface ILocalDoctorService {
      * @return
      */
     LocalDoctor selectLocalDoctorByUsername(String username);
+
+    String checkUserNameUnique(String username);
 }

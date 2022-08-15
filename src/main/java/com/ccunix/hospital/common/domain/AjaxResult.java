@@ -1,5 +1,5 @@
 package com.ccunix.hospital.common.domain;
-import com.ccunix.hospital.common.utils.HttpStatus;
+import com.ccunix.hospital.common.constant.HttpStatus;
 import com.ccunix.hospital.common.utils.StringUtils;
 
 import java.util.HashMap;

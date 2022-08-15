@@ -1,5 +1,6 @@
 package com.ccunix.hospital.web.doctor.controller;
 
+import com.ccunix.hospital.common.constant.UserConstants;
 import com.ccunix.hospital.common.domain.AjaxResult;
 import com.ccunix.hospital.web.doctor.domain.Goods;
 import com.ccunix.hospital.web.doctor.domain.LocalDoctor;
@@ -20,6 +21,15 @@ public class LocalDoctorController {
 
     @PostMapping("/register")
     public AjaxResult login(@Valid @RequestBody LocalDoctor localDoctor){
+        // 先验证  用户名是否唯一
+        // 不是唯一 需要返回一个消息
+        String isUnique = localDoctorService.checkUserNameUnique(localDoctor.getUsername());
+        if(UserConstants.NOT_UNIQUE.equals(isUnique)){
+            // 不唯一
+            return AjaxResult.error("用户名已经被注册");
+        }
+
+
         AjaxResult ajax = AjaxResult.success("注册信息获取成功");
         // 注册
         int row = localDoctorService.register(localDoctor);

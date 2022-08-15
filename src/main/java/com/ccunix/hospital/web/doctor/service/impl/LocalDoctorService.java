@@ -1,5 +1,6 @@
 package com.ccunix.hospital.web.doctor.service.impl;
 
+import com.ccunix.hospital.common.constant.UserConstants;
 import com.ccunix.hospital.common.utils.SecurityUtils;
 import com.ccunix.hospital.web.doctor.domain.LocalDoctor;
 import com.ccunix.hospital.web.doctor.mapper.LocalDoctorMapper;
@@ -24,5 +25,13 @@ public class LocalDoctorService implements ILocalDoctorService {
     @Override
     public LocalDoctor selectLocalDoctorByUsername(String username) {
         return localDoctorMapper.selectLocalDoctorByUsername(username);
+    }
+
+    @Override
+    public String checkUserNameUnique(String username) {
+        int row = localDoctorMapper.checkUserNameUnique(username);
+        if(row>0)
+            return UserConstants.NOT_UNIQUE;
+        return UserConstants.UNIQUE;
     }
 }

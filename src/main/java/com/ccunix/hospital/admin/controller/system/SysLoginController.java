@@ -1,7 +1,7 @@
 package com.ccunix.hospital.admin.controller.system;
 
 import com.ccunix.hospital.common.domain.AjaxResult;
-import com.ccunix.hospital.common.utils.Constants;
+import com.ccunix.hospital.common.constant.Constants;
 import com.ccunix.hospital.framework.service.SysLoginService;
 import com.ccunix.hospital.security.domain.model.LoginBody;
 import org.springframework.beans.factory.annotation.Autowired;

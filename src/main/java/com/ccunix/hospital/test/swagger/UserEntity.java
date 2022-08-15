@@ -1,4 +1,4 @@
-package com.ccunix.hospital.web.doctor.controller.swagger;
+package com.ccunix.hospital.test.swagger;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -2,7 +2,7 @@ package com.ccunix.hospital.framework.interceptor;
 
 import com.ccunix.hospital.common.domain.AjaxResult;
 import com.ccunix.hospital.common.exception.ServiceException;
-import com.ccunix.hospital.common.utils.HttpStatus;
+import com.ccunix.hospital.common.constant.HttpStatus;
 import com.ccunix.hospital.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

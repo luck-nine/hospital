@@ -1,7 +1,6 @@
 package com.ccunix.hospital.common.config;
 
-import com.ccunix.hospital.common.config.SystemConfig;
-import com.ccunix.hospital.common.utils.Constants;
+import com.ccunix.hospital.common.constant.Constants;
 import com.ccunix.hospital.framework.interceptor.RepeatSubmitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

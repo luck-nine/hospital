@@ -1,4 +1,4 @@
-package com.ccunix.hospital.common.utils;
+package com.ccunix.hospital.common.constant;
 
 import io.jsonwebtoken.Claims;
 

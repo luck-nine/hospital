@@ -18,4 +18,11 @@ public interface LocalDoctorMapper {
      * @return
      */
     LocalDoctor selectLocalDoctorByUsername(String username);
+
+    /**
+     * 根据用户名查询是否唯一
+     * @param username
+     * @return
+     */
+    int checkUserNameUnique(String username);
 }

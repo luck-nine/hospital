@@ -1,5 +1,6 @@
 package com.ccunix.hospital.common.utils;
 
+import com.ccunix.hospital.common.constant.HttpStatus;
 import com.ccunix.hospital.common.exception.ServiceException;
 import com.ccunix.hospital.security.domain.model.LoginUser;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,7 @@ public class SecurityUtils
         try{
             return getLoginUser().getUserId();
         }catch (Exception e){
-            throw new ServiceException("获取用户ID异常",HttpStatus.UNAUTHORIZED);
+            throw new ServiceException("获取用户ID异常", HttpStatus.UNAUTHORIZED);
         }
     }
     /**
