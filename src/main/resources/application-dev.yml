@@ -27,3 +27,11 @@ spring:
       maxEvictableIdleTimeMillis: 900000
       # 建议配置为false  获取连接时执行validationQuery检测连接是否有效，这个配置会降低性能
       test-on-borrow: true
+
+
+# Swagger配置
+swagger:
+  # 是否开启swagger
+  enabled: true
+  # 请求前缀
+  pathMapping: /

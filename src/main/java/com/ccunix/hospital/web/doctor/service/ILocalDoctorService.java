@@ -9,4 +9,11 @@ public interface ILocalDoctorService {
      * @return
      */
     int register(LocalDoctor localDoctor);
+
+    /**
+     * 通过用户名称（联系方式） 获得乡医信息
+     * @param username
+     * @return
+     */
+    LocalDoctor selectLocalDoctorByUsername(String username);
 }

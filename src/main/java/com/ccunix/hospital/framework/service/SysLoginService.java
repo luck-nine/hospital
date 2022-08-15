@@ -24,7 +24,7 @@ public class SysLoginService {
      * @param password 用户输入的密码
      * @return
      */
-    public String login(String username, String password) {
+    public String login(String username, String password, String uuid) {
         //用户验证
         Authentication authentication = null;
         try
@@ -43,13 +43,9 @@ public class SysLoginService {
                 throw new ServiceException(e.getMessage());
             }
         }
-        System.out.println("AuthenticationManager获得的信息");
-        System.out.println(authentication.getPrincipal());
         // 获得loadUserByUsername方法返回的UserDetails
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         // loginUser信息进行加密处理    jwt生成的token
-        String token = tokenService.createToken(loginUser);
-        System.out.println("jwt生成的令牌 token="+token);
-        return token;
+        return tokenService.createToken(loginUser);
     }
 }

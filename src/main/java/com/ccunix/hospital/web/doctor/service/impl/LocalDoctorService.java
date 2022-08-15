@@ -20,4 +20,9 @@ public class LocalDoctorService implements ILocalDoctorService {
         localDoctor.setPassword(encPass);
         return localDoctorMapper.insert(localDoctor);
     }
+
+    @Override
+    public LocalDoctor selectLocalDoctorByUsername(String username) {
+        return localDoctorMapper.selectLocalDoctorByUsername(username);
+    }
 }

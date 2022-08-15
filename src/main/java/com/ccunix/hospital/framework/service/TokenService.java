@@ -33,7 +33,7 @@ public class TokenService {
 
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
-    private static final long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
+    private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
 
     @Autowired
     RedisCache redisCache;
@@ -87,6 +87,7 @@ public class TokenService {
     private String getToken(HttpServletRequest request) {
         //从请求头中获得header变量的值 值为：Authorization
         String token = request.getHeader(header);
+        System.out.println("token:"+request.getHeader(header));
         //TOKEN_PREFIX  令牌前缀"Bearer "+token
         if(StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)){
             token = token.replace(Constants.TOKEN_PREFIX,"");
@@ -123,8 +124,7 @@ public class TokenService {
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Constants.LOGIN_TOKEN_KEY);
                 String userKey = getTokenKey(uuid);
-                LoginUser user = redisCache.getCacheObject(userKey);
-                return user;
+                return redisCache.getCacheObject(userKey);
             }catch (Exception e){
 
             }

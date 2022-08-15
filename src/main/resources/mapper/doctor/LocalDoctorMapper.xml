@@ -11,4 +11,45 @@
         insert into local_doctor(local_doctor_id,username,password,phone,name,audit,address,create_time)
         values (#{localDoctorId},#{username},#{password},#{phone},#{name},0,#{address},sysdate())
     </insert>
+
+    <resultMap id="AccountLevelResultMap" type="accountLevel" autoMapping="true">
+        <id column="account_level_id" property="accountLevelId"></id>
+        <result column="name" property="name"></result>
+    </resultMap>
+
+    <resultMap id="LocalDoctorResultMap" type="localDoctor">
+        <id column="local_doctor_id" property="localDoctorId"></id>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="phone" property="phone"/>
+        <result column="name" property="name"/>
+        <result column="audit" property="audit"/>
+        <result column="address" property="address"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+        <result column="status" property="status"/>
+        <result column="del_flag" property="delFlag"/>
+        <!-- 多对一 -->
+        <association property="accountLevel" javaType="accountLevel" resultMap="AccountLevelResultMap" autoMapping="true">
+            <id column="account_level_id" property="accountLevelId"></id>
+            <result column="account_level_name" property="name"></result>
+        </association>
+    </resultMap>
+
+    <!-- 通用的查询 -->
+    <sql id="selectLocalDoctorVo">
+        select d.local_doctor_id,d.username,d.password,d.phone,d.name,d.audit,d.address,d.create_by,d.create_time,d.update_by,d.update_time,d.remark,
+        d.status,d.del_flag,
+        l.account_level_id,l.name account_level_name
+        from local_doctor d
+        left join account_level l on d.account_level_id=l.account_level_id
+    </sql>
+
+    <select id="selectLocalDoctorByUsername" resultMap="LocalDoctorResultMap">
+        <include refid="selectLocalDoctorVo"></include>
+        where username=#{username}
+    </select>
 </mapper>

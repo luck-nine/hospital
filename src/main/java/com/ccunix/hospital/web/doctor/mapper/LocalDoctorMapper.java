@@ -11,4 +11,11 @@ public interface LocalDoctorMapper {
      * @return
      */
     int insert(LocalDoctor localDoctor);
+
+    /**
+     * 根据用户名获得乡医信息
+     * @param username
+     * @return
+     */
+    LocalDoctor selectLocalDoctorByUsername(String username);
 }

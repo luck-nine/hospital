@@ -16,11 +16,11 @@ public class LoginUser implements UserDetails {
     /*
         用户ID
      */
-    private  Long userId;
+    private String userId;
     /*
         部门ID
      */
-    private  Long deptId;
+    private Long deptId;
     /*
         用户唯一标识
      */
@@ -33,16 +33,13 @@ public class LoginUser implements UserDetails {
         过期时间
      */
     private Long expireTime;
-    /*
-        用户信息
-     */
-    private SysUser user;
 
-    public Long getUserId() {
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -62,46 +59,26 @@ public class LoginUser implements UserDetails {
         this.token = token;
     }
 
-    public Long getLoginTime() {
-        return loginTime;
+    public LoginUser(){
     }
 
-    public void setLoginTime(Long loginTime) {
-        this.loginTime = loginTime;
+    public LoginUser(String userId){
+        //this.userId = userId;
     }
 
-    public Long getExpireTime() {
-        return expireTime;
+    @JSONField(serialize = false)
+    @Override
+    public String getPassword(){
+        return null;
     }
 
-    public void setExpireTime(Long expireTime) {
-        this.expireTime = expireTime;
-    }
-
-    public SysUser getUser() {
-        return user;
-    }
-
-    public void setUser(SysUser user) {
-        this.user = user;
+    @JSONField(serialize = false)
+    @Override
+    public String getUsername(){
+        return null;
     }
 
     //认证权限集合
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-    //从数据库返回的密码
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
-    //存用户名
-    @Override
-    public String getUsername() {
-        return user.getUserName();
-    }
-
     @JSONField(serialize = false)
     @Override
     public boolean isAccountNonExpired() {
@@ -126,5 +103,24 @@ public class LoginUser implements UserDetails {
         return true;
     }
 
+    public Long getLoginTime() {
+        return loginTime;
+    }
 
+    public void setLoginTime(Long loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public Long getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Long expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
 }
