@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class LocalDoctorController {
     ILocalDoctorService localDoctorService;
 
     @PostMapping("/register")
-    public AjaxResult login(@RequestBody LocalDoctor localDoctor){
+    public AjaxResult login(@Valid @RequestBody LocalDoctor localDoctor){
         AjaxResult ajax = AjaxResult.success("注册信息获取成功");
         // 注册
         int row = localDoctorService.register(localDoctor);
