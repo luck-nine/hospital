@@ -30,7 +30,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /**
-         * 本地文件上传路径
+         * 本地文件上传路径 /profile/** 本地资源    服务器不能直接操作本地资源   需要转发    允许访问E盘
          */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
                 .addResourceLocations("file:" + SystemConfig.getProfile() + "/");

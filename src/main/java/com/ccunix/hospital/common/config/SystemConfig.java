@@ -132,4 +132,12 @@ public class SystemConfig
     {
         return getProfile() + "/upload";
     }
+
+    /**
+     * 获取上传乡医资料的路径
+     */
+    public static String getDoctorMaterialsPath()
+    {
+        return getProfile() + "/doctor/materials";
+    }
 }
