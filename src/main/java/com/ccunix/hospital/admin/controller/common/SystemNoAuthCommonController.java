@@ -38,7 +38,7 @@ public class SystemNoAuthCommonController {
             // 是否存在该文件夹
             File uploadDir = new File(fileSavePath);
             if(!uploadDir.exists()){
-                uploadDir.mkdir();
+                uploadDir.mkdirs();
             }
             // 确定文件名称   hello.jpg
             String uuid = UUID.randomUUID().toString().replace("-","");
