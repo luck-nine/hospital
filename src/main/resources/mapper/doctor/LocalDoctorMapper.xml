@@ -8,8 +8,8 @@
         <selectKey keyProperty="localDoctorId" resultType="java.lang.String" order="BEFORE">
             select replace(uuid(),'-','') AS ID
         </selectKey>
-        insert into local_doctor(local_doctor_id,username,password,phone,name,audit,address,create_time)
-        values (#{localDoctorId},#{username},#{password},#{phone},#{name},0,#{address},sysdate())
+        insert into local_doctor(local_doctor_id,username,password,phone,name,audit,address,create_time,business_license_path,certificate_path)
+        values (#{localDoctorId},#{username},#{password},#{phone},#{name},0,#{address},sysdate(),#{businessLicensePath},#{certificatePath})
     </insert>
 
     <resultMap id="AccountLevelResultMap" type="accountLevel" autoMapping="true">
@@ -32,6 +32,8 @@
         <result column="remark" property="remark"/>
         <result column="status" property="status"/>
         <result column="del_flag" property="delFlag"/>
+        <result column="business_license_path" property="businessLicensePath"/>
+        <result column="certificate_path" property="certificatePath"/>
         <!-- 多对一 -->
         <association property="accountLevel" javaType="accountLevel" resultMap="AccountLevelResultMap" autoMapping="true">
             <id column="account_level_id" property="accountLevelId"></id>
@@ -42,7 +44,7 @@
     <!-- 通用的查询 -->
     <sql id="selectLocalDoctorVo">
         select d.local_doctor_id,d.username,d.password,d.phone,d.name,d.audit,d.address,d.create_by,d.create_time,d.update_by,d.update_time,d.remark,
-        d.status,d.del_flag,
+        d.status,d.del_flag,d.business_license_path,d.certificate_path,
         l.account_level_id,l.name account_level_name
         from local_doctor d
         left join account_level l on d.account_level_id=l.account_level_id

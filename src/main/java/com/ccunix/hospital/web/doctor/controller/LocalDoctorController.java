@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 @Api(tags = "乡医用户管理")
@@ -34,7 +35,7 @@ public class LocalDoctorController {
             @ApiImplicitParam(name = "address", value = "地址", dataType = "String", dataTypeClass = String.class, required = true)
 
     })
-    public ResponseResult<Integer> register(@Valid @RequestBody LocalDoctor localDoctor){
+    public ResponseResult<Integer> register(@Valid LocalDoctor localDoctor) throws IOException {
         // 先验证  用户名是否唯一
         // 不是唯一 需要返回一个消息
         String isUnique = localDoctorService.checkUserNameUnique(localDoctor.getUsername());

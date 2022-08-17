@@ -5,6 +5,7 @@ import com.ccunix.hospital.security.domain.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -51,4 +52,22 @@ public class LocalDoctor extends BaseEntity {
      */
     @ApiModelProperty("删除标志")
     private String delFlag;
+    /*
+        营业执照存储路径
+     */
+    private String businessLicensePath;
+    /*
+        医师证书存储路径
+     */
+    private String certificatePath;
+    // 文件上传类型
+    /*
+        营业执照
+     */
+    private MultipartFile businessLicense;
+    /*
+        医师证书
+     */
+    private MultipartFile certificate;
+
 }
