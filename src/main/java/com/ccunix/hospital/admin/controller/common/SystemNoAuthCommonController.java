@@ -3,7 +3,9 @@ package com.ccunix.hospital.admin.controller.common;
 import com.ccunix.hospital.common.config.SystemConfig;
 import com.ccunix.hospital.common.constant.Constants;
 import com.ccunix.hospital.common.domain.ResponseResult;
+import com.ccunix.hospital.common.exception.file.InvalidExtensionException;
 import com.ccunix.hospital.common.utils.StringUtils;
+import com.ccunix.hospital.common.utils.file.FileUploadUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +27,6 @@ public class SystemNoAuthCommonController {
 
     @PostMapping("materialsUpload")
     public ResponseResult<String> materialsUpload(@RequestParam(value = "file", required = true) MultipartFile multipartFile) throws IOException {
-
         if(multipartFile!=null && !multipartFile.isEmpty()){
             // 做业务
             // 获得存储路径
@@ -56,6 +57,31 @@ public class SystemNoAuthCommonController {
             return ResponseResult.success(dbFilePath);
         }
 
+        return ResponseResult.error(null);
+    }
+
+    // 上传图片
+    @PostMapping("imageMaterialsUpload")
+    public ResponseResult<String> imageMaterialsUpload(@RequestParam(value = "file", required = true) MultipartFile multipartFile)
+            throws IOException, InvalidExtensionException {
+        // E:/ccunix/uploadPath
+        String profile = SystemConfig.getProfile();
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String path = FileUploadUtil.upload(multipartFile, profile+"/system/news/image");
+            return ResponseResult.success(path);
+        }
+        return ResponseResult.error(null);
+    }
+    // 上传视频
+    @PostMapping("videoMaterialsUpload")
+    public ResponseResult<String> videoMaterialsUpload(@RequestParam(value = "file", required = true) MultipartFile multipartFile)
+            throws IOException, InvalidExtensionException {
+        // E:/ccunix/uploadPath
+        String profile = SystemConfig.getProfile();
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String path = FileUploadUtil.upload(multipartFile, profile+"/system/news/video");
+            return ResponseResult.success(path);
+        }
         return ResponseResult.error(null);
     }
 }

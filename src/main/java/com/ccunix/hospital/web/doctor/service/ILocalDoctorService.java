@@ -1,5 +1,6 @@
 package com.ccunix.hospital.web.doctor.service;
 
+import com.ccunix.hospital.common.exception.file.InvalidExtensionException;
 import com.ccunix.hospital.web.doctor.domain.LocalDoctor;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ public interface ILocalDoctorService {
      * @param localDoctor
      * @return
      */
-    int register(LocalDoctor localDoctor) throws IOException;
+    int register(LocalDoctor localDoctor) throws IOException, InvalidExtensionException;
 
     /**
      * 通过用户名称（联系方式） 获得乡医信息

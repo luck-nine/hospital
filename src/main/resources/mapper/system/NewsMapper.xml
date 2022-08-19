@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccunix.hospital.admin.mapper.NewsMapper">
+
+    <resultMap id="NewsResultMap" type="news" autoMapping="true">
+        <id column="news_id" property="newsId"></id>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_on" property="isOn"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="news">
+        insert into news(news_id,title,content,create_time,is_on)
+        values (#{newsId},#{title},#{content},sysdate(),0)
+    </insert>
+
+    <sql id="newsSql">
+        select news_id,title,content,create_time,is_on from news
+    </sql>
+
+    <select id="selectNewsById" parameterType="news" resultMap="NewsResultMap">
+        <include refid="newsSql"></include>
+        where news_id=#{newsId}
+    </select>
+
+    <select id="selectNewsList" resultMap="NewsResultMap">
+        <include refid="newsSql"></include>
+        <where>
+            <if test="newsId != null and newsId != ''"> and news_id = #{newsId}</if>
+            <if test="title != null and title != ''"> and title = #{title}</if>
+            <if test="content != null and content != ''"> and content = #{content}</if>
+            <if test="isOn != null"> and is_on = #{isOn}</if>
+        </where>
+    </select>
+
+    <update id="updateNewsById" parameterType="news">
+        update news
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="is_on != null">is_on = #{isOn},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where news_id = #{newsId}
+    </update>
+    <!-- [sfsdfsdfs,dsfsfdsfsd]
+    delete from news where news_id in ('sfsdfsdfs','dsfsfdsfsd')
+    -->
+    <delete id="deleteNewsByIds" parameterType="string">
+        delete from news where news_id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

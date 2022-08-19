@@ -4,6 +4,7 @@ import com.ccunix.hospital.common.constant.UserConstants;
 import com.ccunix.hospital.common.domain.AjaxResult;
 import com.ccunix.hospital.common.domain.ResponseEnum;
 import com.ccunix.hospital.common.domain.ResponseResult;
+import com.ccunix.hospital.common.exception.file.InvalidExtensionException;
 import com.ccunix.hospital.web.doctor.domain.Goods;
 import com.ccunix.hospital.web.doctor.domain.LocalDoctor;
 import com.ccunix.hospital.web.doctor.service.ILocalDoctorService;
@@ -13,7 +14,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +35,7 @@ public class LocalDoctorController {
             @ApiImplicitParam(name = "address", value = "地址", dataType = "String", dataTypeClass = String.class, required = true)
 
     })
-    public ResponseResult<Integer> register(@Valid LocalDoctor localDoctor) throws IOException {
+    public ResponseResult<Integer> register(@Valid LocalDoctor localDoctor) throws IOException, InvalidExtensionException {
         // 先验证  用户名是否唯一
         // 不是唯一 需要返回一个消息
         String isUnique = localDoctorService.checkUserNameUnique(localDoctor.getUsername());
