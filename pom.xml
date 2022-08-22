@@ -18,6 +18,7 @@
         <jwt.version>0.9.1</jwt.version>
         <fastjson.version>1.2.79</fastjson.version>
         <swagger.version>3.0.0</swagger.version>
+        <bitwalker.version>1.21</bitwalker.version>
     </properties>
     <dependencies>
         <dependency>
@@ -118,6 +119,19 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
+        </dependency>
+
+        <!-- SpringBoot 拦截器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 解析客户端操作系统，浏览器等 -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>${bitwalker.version}</version>
         </dependency>
 
         <dependency>
